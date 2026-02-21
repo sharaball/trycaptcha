@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>reCAPTCHA Demo</title>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+
+<h3>Подтвердите, что вы не дундук</h3>
+
+<form onsubmit="return onSubmit(event)">
+
+    <div class="g-recaptcha" data-sitekey="6LensHIsAAAAANnMMc7Z3cV14tXx92Q1uh0NCLYB"></div>
+
+    <br>
+    <button type="submit">Отправить</button>
+
+</form>
+
+<p id="result"></p>
+
+<script>
+function onSubmit(e){
+    e.preventDefault();
+    const response = grecaptcha.getResponse();
+    if(response.length === 0){
+        document.getElementById("result").innerText = "Пройдите CAPTCHA";
+        document.getElementById("result").style.color = "red";
+        return false;
+    }
+    document.getElementById("result").innerText = "CAPTCHA пройдена ✔";
+    document.getElementById("result").style.color = "green";
+    console.log("CAPTCHA token:", response);
+    return true;
+}
+</script>
+
+</body>
+</html>
